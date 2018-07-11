@@ -1,0 +1,191 @@
+﻿<!DOCTYPE HTML>
+<!-- saved from url=(0046)https://www.cnblogs.com/zeciiii/p/4178824.html -->
+<!DOCTYPE html PUBLIC "" ""><HTML lang="zh-cn"><HEAD><META content="IE=10.0000" 
+http-equiv="X-UA-Compatible">
+ 
+<META charset="utf-8"> 
+<META name="viewport" content="width=device-width, initial-scale=1"> 
+<TITLE>Java如何获取当前的jar包路径以及如何读取jar包中的资源 - zec_iiii - 博客园</TITLE> <LINK href="Java如何获取当前的jar包路径以及如何读取jar包中的资源%20-%20zec_iiii%20-%20博客园_files/blog-common.css" 
+rel="stylesheet" type="text/css"> <LINK id="MainCss" href="Java如何获取当前的jar包路径以及如何读取jar包中的资源%20-%20zec_iiii%20-%20博客园_files/bundle-En_summerGarden.css" 
+rel="stylesheet" type="text/css"> <LINK id="mobile-style" href="Java如何获取当前的jar包路径以及如何读取jar包中的资源%20-%20zec_iiii%20-%20博客园_files/bundle-En_summerGarden-mobile.css" 
+rel="stylesheet" type="text/css" media="only screen and (max-width: 767px)"> 
+<LINK title="RSS" href="http://www.cnblogs.com/zeciiii/rss" rel="alternate" 
+type="application/rss+xml"> <LINK title="RSD" href="http://www.cnblogs.com/zeciiii/rsd.xml" 
+rel="EditURI" type="application/rsd+xml"> <LINK href="http://www.cnblogs.com/zeciiii/wlwmanifest.xml" 
+rel="wlwmanifest" type="application/wlwmanifest+xml"> 
+<SCRIPT src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></SCRIPT>
+ 
+<SCRIPT type="text/javascript">var currentBlogApp = 'zeciiii', cb_enable_mathjax=false;var isLogined=false;</SCRIPT>
+ 
+<SCRIPT src="/bundles/blog-common.js?v=oFpq70v3U1-c9rdP99iicoTFTCbQZF5NZNtH0AloVxg1" type="text/javascript"></SCRIPT>
+ 
+<META name="GENERATOR" content="MSHTML 11.00.10570.1001"></HEAD> 
+<BODY><A name="top"></A> <!--done--> 
+<DIV id="home">
+<DIV id="header">
+<DIV id="blogTitle"><A id="lnkBlogLogo" 
+href="http://www.cnblogs.com/zeciiii/"><IMG id="blogLogo" alt="Return Home" src="Java如何获取当前的jar包路径以及如何读取jar包中的资源%20-%20zec_iiii%20-%20博客园_files/logo.gif"></A>			
+		<!--done--> 
+<H1><A class="headermaintitle" id="Header1_HeaderTitle" href="http://www.cnblogs.com/zeciiii/">zec_iiii</A></H1>
+<H2></H2></DIV><!--end: blogTitle 博客的标题和副标题 -->	 
+<DIV id="navigator"><!--done-->			 
+<UL id="navList">
+  <LI><A class="menu" id="blog_nav_sitehome" 
+  href="http://www.cnblogs.com/">CnBlogs</A></LI>
+  <LI><A class="menu" id="blog_nav_myhome" href="http://www.cnblogs.com/zeciiii/">Home</A></LI>
+  <LI><A class="menu" id="blog_nav_newpost" href="https://i.cnblogs.com/EditPosts.aspx?opt=1" 
+  rel="nofollow">New Post</A></LI>
+  <LI><A class="menu" id="blog_nav_contact" accesskey="9" href="https://msg.cnblogs.com/send/zec_iiii" 
+  rel="nofollow">Contact</A></LI>
+  <LI><A class="menu" id="blog_nav_admin" href="https://i.cnblogs.com/" rel="nofollow">Admin</A></LI>
+  <LI><A class="menu" id="blog_nav_rss" href="http://www.cnblogs.com/zeciiii/rss">Rss</A>
+  				 <A class="aHeaderXML" id="blog_nav_rss_image" href="http://www.cnblogs.com/zeciiii/rss"><IMG 
+  alt="Rss" src="Java如何获取当前的jar包路径以及如何读取jar包中的资源%20-%20zec_iiii%20-%20博客园_files/xml.gif"></A></LI></UL>
+<DIV class="blogStats">
+<DIV id="blog_stats"><!--done--> Posts - 4&nbsp; Articles - 0&nbsp; Comments - 
+1&nbsp; </DIV></DIV><!--end: blogStats -->	 </DIV><!--end: navigator 博客导航栏 --> 
+</DIV><!--end: header 头部 --> 
+<DIV id="main">
+<DIV id="mainContent">
+<DIV class="forFlow">
+<DIV id="post_detail"><!--done--> 
+<DIV id="topics">
+<DIV class="post">
+<H1 class="postTitle"><A class="postTitle2" id="cb_post_title_url" href="https://www.cnblogs.com/zeciiii/p/4178824.html">Java如何获取当前的jar包路径以及如何读取jar包中的资源</A>
+		 </H1>
+<DIV class="clear"></DIV>
+<DIV class="postBody">
+<DIV class="blogpost-body" id="cnblogs_post_body">
+<P>&nbsp; &nbsp; 
+&nbsp;写作业的时候要输出一个record.dat文件到jar包的同级目录，但是不知道怎么定位jar包的路径。百度到的方法不很靠谱，所以在这里记录一下。</P>
+<P><STRONG>一：使用类路径</STRONG></P>
+<DIV class="cnblogs_code">
+<PRE><SPAN style="color: rgb(0, 128, 128);">1</SPAN> String path = <SPAN style="color: rgb(0, 0, 255);">this</SPAN>.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();</PRE></DIV>
+<P>或者</P>
+<DIV class="cnblogs_code">
+<PRE><SPAN style="color: rgb(0, 128, 128);">1</SPAN> String path = <SPAN style="color: rgb(0, 0, 255);">this</SPAN>.getClass().getProtectionDomain().getCodeSource().getLocation().getFile();</PRE></DIV>
+<P>因为程序已经被打包成jar包，所以getPath()和getFile()在这里的返回值是一样的。都是/xxx/xxx.jar这种形式。如果路径包含Unicode字符，还需要将路径转码</P>
+<DIV class="cnblogs_code">
+<PRE>path = java.net.URLDecoder.decode(path, "UTF-8");</PRE></DIV>
+<P><STRONG>二：使用JVM</STRONG></P>
+<DIV class="cnblogs_code">
+<PRE>String path = System.getProperty("java.class.path");</PRE></DIV>
+<P>利用了java运行时的系统属性来得到jar文件位置，也是/xxx/xxx.jar这种形式。</P>
+<HR>
+
+<HR>
+
+<P>&nbsp;</P>
+<P>这样，我们就获得了jar包的位置，但是这还不够，我们需要的是jar包的目录。</P>
+<P>使用</P>
+<DIV class="cnblogs_code">
+<PRE><SPAN style="color: rgb(0, 128, 128);">1</SPAN> <SPAN style="color: rgb(0, 0, 255);">int</SPAN> firstIndex = path.lastIndexOf(System.getProperty("path.separator")) + 1<SPAN style="color: rgb(0, 0, 0);">;
+</SPAN><SPAN style="color: rgb(0, 128, 128);">2</SPAN> <SPAN style="color: rgb(0, 0, 255);">int</SPAN> lastIndex = path.lastIndexOf(File.separator) + 1<SPAN style="color: rgb(0, 0, 0);">;
+</SPAN><SPAN style="color: rgb(0, 128, 128);">3</SPAN> path = path.substring(firstIndex, lastIndex);</PRE></DIV>
+<P>来得到目录。</P>
+<P>path.separator在Windows系统下得到;（分号）,在Linux下得到:(冒号)。也就是环境变量中常用来分割路径的两个符号，比如在Windows下我们经常设置环境变量PATH=xxxx\xxx;xxx\xxx;这里获得的就是这个分号。</P>
+<P>File.separator则是/（斜杠）与\（反斜杠），Windows下是\（反斜杠），Linux下是/（斜杠）。</P>
+<HR>
+
+<HR>
+
+<HR>
+
+<P><SPAN style="font-size: 15px;"><STRONG>如何加载jar包中的资源。</STRONG></SPAN></P>
+<P>1. 比如说我要得到背景图片，源代码中它是</P>
+<P>/src/UI/image/background.jpg</P>
+<P>那么在jar包中它的路径应该是</P>
+<P>/UI/image/background.jpg</P>
+<P>路径最前面的/表示根目录，即绝对路径，若没有最左边的/，则表示相对路径。使用哪种方法看自己的需求，这里使用了绝对路径。</P>
+<P>加载的时候使用</P>
+<DIV class="cnblogs_code">
+<PRE><SPAN style="color: rgb(0, 128, 128);">1</SPAN> java.net.URL fileURL = <SPAN style="color: rgb(0, 0, 255);">this</SPAN>.getClass().getResource("/UI/image/background.jpg"<SPAN style="color: rgb(0, 0, 0);">);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">2</SPAN> javax.swing.Image backGround = <SPAN style="color: rgb(0, 0, 255);">new</SPAN> ImageIcon(fileURL).getImage();</PRE></DIV>
+<P>即可以获得该图片资源。</P>
+<P>2. 有时候，我们需要加载文本资源或音乐资源，而文本在Java中是以流对象存在的，这时我们就要使用</P>
+<DIV class="cnblogs_code">
+<PRE>InputStream in = <SPAN style="color: rgb(0, 0, 255);">this</SPAN>.getClass().getResourceAsStream("/UI/image/background.txt");</PRE></DIV>
+<P>加载该资源。</P>
+<HR>
+
+<P>&nbsp;</P>
+<P>PS:注意这里两种方法的区别，第一种是先得到该文件的路径，再加载该文件资源。第二种则是直接加载该对象。</P>
+<HR>
+
+<P>&nbsp;</P>
+<P>3.有时候，我们有一些资源类，其中的资源对象都是pulic static final修饰的，这里可以采用这样的方法初始化。</P>
+<P>比如说我有一个ImageSource类用来加载各种图片资源，那么可以如下使用</P>
+<DIV class="cnblogs_code">
+<PRE><SPAN style="color: rgb(0, 128, 128);">1</SPAN> <SPAN style="color: rgb(0, 0, 255);">public</SPAN> <SPAN style="color: rgb(0, 0, 255);">class</SPAN><SPAN style="color: rgb(0, 0, 0);"> ImageSource
+</SPAN><SPAN style="color: rgb(0, 128, 128);">2</SPAN> <SPAN style="color: rgb(0, 0, 0);">{
+</SPAN><SPAN style="color: rgb(0, 128, 128);">3</SPAN>     <SPAN style="color: rgb(0, 0, 255);">static</SPAN>
+<SPAN style="color: rgb(0, 128, 128);">4</SPAN> <SPAN style="color: rgb(0, 0, 0);">    {
+</SPAN><SPAN style="color: rgb(0, 128, 128);">5</SPAN>         URL fileURL = ImageSource.<SPAN style="color: rgb(0, 0, 255);">class</SPAN>.getResource(“/UI/image/<SPAN style="color: rgb(0, 0, 0);">background.jpg”);
+</SPAN><SPAN style="color: rgb(0, 128, 128);">6</SPAN>         BACK_GROUND = <SPAN style="color: rgb(0, 0, 255);">new</SPAN><SPAN style="color: rgb(0, 0, 0);"> ImageIcon(fileURL).getImage();
+</SPAN><SPAN style="color: rgb(0, 128, 128);">7</SPAN> <SPAN style="color: rgb(0, 0, 0);">    }
+</SPAN><SPAN style="color: rgb(0, 128, 128);">8</SPAN>     <SPAN style="color: rgb(0, 0, 255);">public</SPAN> <SPAN style="color: rgb(0, 0, 255);">static</SPAN> <SPAN style="color: rgb(0, 0, 255);">final</SPAN><SPAN style="color: rgb(0, 0, 0);"> Image BACK_GROUND;
+</SPAN><SPAN style="color: rgb(0, 128, 128);">9</SPAN> }</PRE></DIV>
+<P>这里不能用构造函数初始化，因为构造函数和对象相关，而static变量和对象是无关的，只和类相关。在Java的语法中，类中的static块是不依赖类对象的，因此可以初始化statc对象。同时，static块中不能使用this，这里使用了ImageSource.class代替。</P>
+<P>&nbsp;</P></DIV>
+<DIV id="MySignature"></DIV>
+<DIV class="clear"></DIV>
+<DIV id="blog_post_info_block">
+<DIV id="BlogPostCategory"></DIV>
+<DIV id="EntryTag"></DIV>
+<DIV id="blog_post_info"></DIV>
+<DIV class="clear"></DIV>
+<DIV id="post_next_prev"></DIV></DIV></DIV>
+<DIV class="postDesc">posted @ <SPAN id="post-date">2014-12-22 19:30</SPAN> <A 
+href="http://www.cnblogs.com/zeciiii/">zec_iiii</A> Views(<SPAN id="post_view_count">...</SPAN>) 
+Comments(<SPAN id="post_comment_count">...</SPAN>)  <A href="https://i.cnblogs.com/EditPosts.aspx?postid=4178824" 
+rel="nofollow">Edit</A> <A onclick="AddToWz(4178824);return false;" href="https://www.cnblogs.com/zeciiii/p/4178824.html#">收藏</A></DIV></DIV>
+<SCRIPT type="text/javascript">var allowComments=true,cb_blogId=204472,cb_entryId=4178824,cb_blogApp=currentBlogApp,cb_blogUserGuid='6e6d952a-c034-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2014/12/22 19:30:00';loadViewCount(cb_entryId);var cb_postType=1;</SCRIPT>
+	 </DIV></DIV><A name="!comments"></A>
+<DIV id="blog-comments-placeholder"></DIV>
+<SCRIPT type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</SCRIPT>
+ 
+<DIV class="commentform" id="comment_form"><A name="commentform"></A> 
+<DIV id="divCommentShow"></DIV>
+<DIV id="comment_nav"><SPAN id="span_refresh_tips"></SPAN><A id="lnk_RefreshComments" 
+onclick="return RefreshCommentList();" href="javascript:void(0);" clientidmode="Static" 
+runat="server">刷新评论</A><A onclick="return RefreshPage();" href="https://www.cnblogs.com/zeciiii/p/4178824.html#">刷新页面</A><A 
+href="https://www.cnblogs.com/zeciiii/p/4178824.html#top">返回顶部</A></DIV>
+<DIV id="comment_form_container"></DIV>
+<DIV class="ad_text_commentbox" id="ad_text_under_commentbox"></DIV>
+<DIV id="ad_t2"></DIV>
+<DIV id="opt_under_post"></DIV>
+<DIV class="c_ad_block" id="cnblogs_c1"></DIV>
+<DIV id="under_post_news"></DIV>
+<DIV class="c_ad_block" id="cnblogs_c2"></DIV>
+<DIV id="under_post_kb"></DIV>
+<DIV class="c_ad_block" id="HistoryToday"></DIV>
+<SCRIPT type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</SCRIPT>
+ </DIV></DIV><!--end: forFlow -->	 </DIV><!--end: mainContent 主体内容容器-->	 
+<DIV id="sideBar">
+<DIV id="sideBarMain"><!--done--> 
+<DIV class="newsItem">
+<H3 class="catListTitle">公告</H3>
+<DIV id="blog-news"></DIV>
+<SCRIPT type="text/javascript">loadBlogNews();</SCRIPT>
+ </DIV>
+<DIV id="calendar"></DIV>
+<DIV id="leftcontentcontainer">
+<DIV id="blog-sidecolumn"></DIV>
+<SCRIPT type="text/javascript">loadBlogSideColumn();</SCRIPT>
+			 </DIV></DIV><!--end: sideBarMain -->	 </DIV><!--end: sideBar 侧边栏容器 -->	 
+<DIV class="clear"></DIV></DIV><!--end: main -->	 
+<DIV class="clear"></DIV>
+<DIV id="footer"><!--done--> Copyright ©2018 zec_iiii	 </DIV><!--end: footer --> 
+</DIV><!--end: home 自定义的最大容器 --> </BODY></HTML>
